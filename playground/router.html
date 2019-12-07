@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <router-link to="/login">Login</router-link>
+            <router-link to="/main">Main</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+
+        var LoginComponent = {
+            template: '<div>Login</div>',
+        }
+
+        var MainConponent = {
+            template: '<div>Main</div>'
+        }
+
+        var router = new VueRouter({
+            // url에 해쉬 #를 없애고 싶으면, mode : 'history'를 추가한다.
+            // 페이지의 라우팅 정보 , 배열이 들어가고 페이지의 갯수만큼 객체가 들어간다.
+            //mode : 'history',
+            routes: [ 
+                // 로그인 페이지 
+                {
+                    // path: 표시될 페이지의 url 
+                    path: '/login',
+                    // component : 해당 url에서 표시될 컴포넌트, 해당 페이지마다 뿌려지는 컴포넌트는 1개.
+                    component: LoginComponent
+                },
+                // 메인 페이지 
+                {
+                    path: '/main',
+                    component: MainConponent
+                },
+            ]
+        });
+
+        new Vue({
+            el: '#app',
+            router: router,
+        });
+    </script>
+</body>
+</html>

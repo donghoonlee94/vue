@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{num}}</p>
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header> -->
+        <app-header v-on:pass="logText"></app-header>
+        <app-content v-oincreasen:="increaseNumber"></app-content>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // $emit 제공되는 기능. this.$emit('이벤트명')
+        // appHeader의 methods에서 passEvent를 실행해서 pass라는 이벤트를 발생, 
+        // v-on 디렉티브로 상위 컴포넌트의 이벤트를 받아 logText라는 메소드를 실행.
+
+
+        var appHeader = {
+            template: '<button v-on:click="passEvent">Click me</button>',
+            methods: {
+                passEvent: function() {
+                    this.$emit('pass');
+                }
+            }
+        }
+
+        var appContent = {
+            template: '<button v-on:click="addNumber">add</button>',
+            methods: {
+                addNumber : function() {
+                    this.$emit('increase');
+                }
+            }
+        }
+        
+        // 객체 안에 this는 객체를 뜻하지만, Vue에서는 Vue 자체를 뜻한다. 
+        // 아래에서 this는 Vue가 되고, 바로 num이 없지만, vue에서는 내부 데이터가 다 
+        // Vue 바로 아래에 위치하게 된다. 아래 내용을 변수에 담고 console.log 찍으면 확인이 가능. 그래서 num 접근이 가능하다.
+
+        new Vue({
+            el: '#app',
+            components: {
+                'app-header':appHeader,
+                'app-content':appContent,
+            },
+            methods: {
+                logText: function() {
+                    console.log('h1 Text');
+                },
+                increaseNumber: function() {
+                    this.num = this.num + 1;
+                }
+            },
+            data: {
+                num : 10
+            }
+        })
+    </script>    
+</body>
+</html>
