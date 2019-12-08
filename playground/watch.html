@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{num}}</p>
+        <button v-on:click="addNum">increase</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script>
+        // watch 는 데이터를 넣을 수 있고, 로직을 생성할 수 있다.  데이터를 넣고 해당 데이터가 바뀔 때마다 watch에 있는 num : function이 실행된다.
+        // watch는 무거운 로직, 데이터를 요청하거나 하는 등에 사용하면 좋다. computed는 텍스트나 간단한 계산에 사용.
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10
+            },
+            watch: {
+                num : function() {
+                    this.logText();
+                }
+            },
+            methods: {
+                addNum: function() {
+                    this.num = this.num + 1;
+                },
+                logText: function() {
+                    console.log('changed');
+                }
+            },
+        });
+    </script>
+</body>
+</html>
