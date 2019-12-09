@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <!-- <app-header v-bind:프롭스 속성 이름="상위 컴포넌트(app.vue)의 데이터 이름"></app-header> -->
+    <app-header 
+      v-bind:propsdata="str"
+      v-on:renew="renewStr" 
+      ></app-header>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// 파일의 내용이 AppHeader 라는 변수에 담겼다.
+import AppHeader from './components/AppHeader.vue'
+
+// 위의 임포트 방식을 풀어 해석하면 아래와 같다.
+
+ /* var AppHeader = {
+  template : '<header><h1>Header</h1></header>'
+} */
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  /* 기존은 아래 방식이나, vue에서는 아래와 같은 방식을 하지 않음. 컴포넌트 간의 충돌을 막기 위함. 
+  new Vue({
+    data: {
+      str : ''h1
+    }
+  }) */
+  data: function() {
+    return {
+      str: 'Header'
+    }
+  },
+  components : {
+    'app-header' : AppHeader,
+  },
+  methods: {
+    renewStr: function() {
+      this.str = 'hi';
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
